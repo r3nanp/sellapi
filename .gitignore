@@ -1,4 +1,8 @@
 node_modules
-
 .env
 .database.env
+coverage
+dist
+
+uploads/*
+!uploads/.gitkeep
