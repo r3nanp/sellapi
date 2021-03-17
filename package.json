@@ -5,28 +5,35 @@
   "author": "r3nanp <renanmol87@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "node src/index.js",
     "build": "tsc",
-    "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "lint": "eslint . --ext .ts",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/node": "^8.0.29",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.3.1",
     "prettier": "^2.2.1",
+    "ts-node": "3.3.0",
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "3.3.3333",
-    "ts-node": "3.3.0"
+    "typescript": "3.3.3333"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mysql": "^2.14.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.10",
-    "typeorm": "0.2.31",
-    "mysql": "^2.14.1"
+    "typeorm": "0.2.31"
   }
 }
