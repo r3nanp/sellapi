@@ -1,11 +1,11 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm'
-import { v4 as uuid4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 @Entity('products')
 export class Product {
   constructor() {
     if (!this.id) {
-      this.id = uuid4()
+      this.id = uuidv4()
     }
   }
 
