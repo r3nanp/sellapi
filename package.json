@@ -10,6 +10,7 @@
     "dev": "tsnd --transpile-only --respawn --inspect --ignore-watch node_modules -r tsconfig-paths/register src/shared/infra/http/server.ts",
     "lint": "eslint . --ext ts",
     "lint:fix": "eslint . --ext ts --fix",
+    "tsc": "tsc --noEmit",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
