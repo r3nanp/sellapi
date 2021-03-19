@@ -6,13 +6,14 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     "noImplicitAny": true,
     "baseUrl": "./src",
     "paths": {
       "@shared/*": ["shared/*"],
       "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"]
+      "@config/*": ["config/*"],
+      "@products/*": ["modules/products/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
