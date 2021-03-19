@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  postgres:
+    container_name: sell_api
+    hostname: sell_api
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USERNAME: sell
+      POSTGRES_PASSWORD: sellapi
+      POSTGRES_DB: sellapi
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
