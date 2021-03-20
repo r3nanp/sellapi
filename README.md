@@ -14,6 +14,7 @@
 
 - Node.js
 - Express
+- Yup
 - TypeORM
 - PostgreSQL
 
@@ -23,22 +24,52 @@
 
 <br />
 
-# How to run 🤔
+# 👷‍♂️ Installation
+
+**You need to install [Node.js](https://nodejs.org/en/download/) and [Yarn](https://yarnpkg.com/) first, then in order to clone the project via HTTPS, run this command:**
 
 ```
-# Clone repository
-
-$ git clone https://github.com/r3nanp/sellapi.git
+git clone https://github.com/r3nanp/sellapi.git
 ```
 
-```
-# At the root of the project, run:
-
-yarn or npm install
-```
+SSH URLs provide access to a Git repository via SSH, a secure protocol. If you use a SSH key registered in your Github account, clone the project using this command:
 
 ```
-# To run the app in your machine:
-
-yarn dev or npm run dev
+git clone git@github.com:r3nanp/sellapi.git
 ```
+
+**Install dependencies**
+
+```
+yarn install
+```
+
+Or
+
+```
+npm install
+```
+
+Create your enviroment variables based on the examples of ```.env.example```
+
+```
+cp .env.example .env
+```
+
+After copying the examples, make sure to fill the variables with new values.
+
+**Setup a database**
+
+Install [Postgres](https://www.postgresql.org/) to create a database or if you have [Docker](https://www.docker.com/) in your machine, fill the environment values related to database configurations and then run the following commands in order to create a Postgres container.
+
+```docker-compose up```
+
+# 🏃 Getting Started
+
+Run the transactions in order to configure the database schema
+
+```yarn typeorm migration:run```
+
+Run the following command in order to start the application in a development environment:
+
+```yarn dev```
