@@ -41,6 +41,6 @@ export class createProducts1616081480670 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('create_products')
+    await queryRunner.dropTable('products')
   }
 }
