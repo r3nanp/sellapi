@@ -73,3 +73,10 @@ Run the transactions in order to configure the database schema
 Run the following command in order to start the application in a development environment:
 
 ```yarn dev```
+
+# :closed_book: License
+
+Released in 2021.
+This project is under the [MIT license](https://github.com/r3nanp/sellapi/main/LICENSE).
+
+Made with love by [Renan Pereira](https://github.com/r3nanp) 💜🚀
