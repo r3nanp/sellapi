@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryColumn,
+  UpdateDateColumn
+} from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 
 @Entity('products')
@@ -24,6 +30,6 @@ export class Product {
   @CreateDateColumn()
   created_at: Date
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updated_at: Date
 }
