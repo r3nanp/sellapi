@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 import 'dotenv/config'
-import 'express-async-errors'
 
 import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
+import 'express-async-errors'
 
-import '@shared/infra/database/createConnection'
+import '@shared/infra/typeorm/createConnection'
 import { routes } from './routes/app.routes'
 import { AppError } from '@shared/errors/AppError'
 
