@@ -6,3 +6,4 @@ dist
 
 uploads/*
 !uploads/.gitkeep
+ormconfig.json
