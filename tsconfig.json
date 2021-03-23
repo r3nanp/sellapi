@@ -5,6 +5,7 @@
     "allowJs": true,
     "outDir": "./dist",
     "rootDir": "./src",
+    "typeRoots": ["@types", "./node_modules/@types"],
     "strict": true,
     "strictPropertyInitialization": false,
     "noImplicitAny": true,
@@ -12,8 +13,7 @@
     "paths": {
       "@shared/*": ["shared/*"],
       "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@products/*": ["modules/products/*"]
+      "@config/*": ["config/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
