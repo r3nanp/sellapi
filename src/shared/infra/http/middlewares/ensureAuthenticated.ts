@@ -4,6 +4,12 @@ import jwt from 'jsonwebtoken'
 import { AppError } from '@shared/errors/AppError'
 import auth from '@config/auth'
 
+interface ITokenPayload {
+  iat: number
+  exp: number
+  sub: string
+}
+
 export function ensureAuthenticated(
   request: Request,
   _response: Response,
@@ -18,7 +24,13 @@ export function ensureAuthenticated(
   const [, token] = authHeader.split(' ')
 
   try {
-    jwt.verify(token, auth.secret)
+    const decodedToken = jwt.verify(token, auth.secret)
+
+    const { sub } = decodedToken as ITokenPayload
+
+    request.user = {
+      id: sub
+    }
 
     return next()
   } catch {
