@@ -4,9 +4,7 @@ import { Service } from '@shared/core/Service'
 import { Product } from '../infra/typeorm/entities/product.entity'
 import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
 
-type Response = {
-  products: Product[]
-}
+type Response = Product[]
 
 export class SearchProductService implements Service<void, Response> {
   async execute(): Promise<Response> {
@@ -14,6 +12,6 @@ export class SearchProductService implements Service<void, Response> {
 
     const products = await productsRepository.find()
 
-    return { products }
+    return products
   }
 }
