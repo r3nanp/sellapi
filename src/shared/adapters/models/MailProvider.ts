@@ -1,3 +1,5 @@
+import { IParseMailTemplate } from '@config/mailTemplate'
+
 interface IMessage {
   from: {
     name: string
@@ -5,7 +7,7 @@ interface IMessage {
   }
   to: string
   subject: string
-  body: string
+  body: IParseMailTemplate | string
 }
 
 export interface MailProvider {
