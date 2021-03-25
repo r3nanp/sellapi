@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm'
+import path from 'path'
 
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
@@ -22,9 +23,16 @@ export class SendForgotPasswordEmailService implements Service<Request, void> {
       throw new AppError('User not found.')
     }
 
-    const generatedToken = await userTokenRepository.generate(user.id)
+    const { token } = await userTokenRepository.generate(user.id)
 
     const mail = new EtherealMailFakeProvider(mailConfig.config.ethereal)
+
+    const forgotPasswordTemplate = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs'
+    )
 
     await mail.sendEmail({
       to: email,
@@ -32,8 +40,17 @@ export class SendForgotPasswordEmailService implements Service<Request, void> {
         name: 'Staff SellAPI',
         email: 'staff@sellapi.com'
       },
-      subject: 'Recuperação de senha',
-      body: `Solicitação de redefinição de senha recebida: ${generatedToken?.token}`
+      subject: '[SellAPI] Recuperação de senha',
+      body: {
+        file: forgotPasswordTemplate,
+        variables: {
+          name: user.name,
+          link:
+            process.env.NODE_ENV === 'production'
+              ? ''
+              : `http://localhost:3000/reset_password?token=${token}`
+        }
+      }
     })
   }
 }
