@@ -1,5 +1,6 @@
 import nodemailer, { Transporter } from 'nodemailer'
 import { MailProvider } from '@shared/adapters/models/MailProvider'
+import { IParseMailTemplate, MailTemplate } from '@config/mailTemplate'
 
 interface Message {
   from: {
@@ -8,14 +9,16 @@ interface Message {
   }
   to: string
   subject: string
-  body: string
+  body: IParseMailTemplate
 }
 
 export class EtherealMailFakeProvider implements MailProvider {
   private transporter: Transporter
+  private mailTemplate: MailTemplate
 
   constructor(mailConfig: object) {
     this.transporter = nodemailer.createTransport(mailConfig)
+    this.mailTemplate = new MailTemplate()
   }
 
   async sendEmail(message: Message): Promise<void> {
@@ -26,7 +29,7 @@ export class EtherealMailFakeProvider implements MailProvider {
       },
       to: message.to,
       subject: message.subject,
-      html: message.body
+      html: await this.mailTemplate.parse(message.body)
     })
   }
 }
