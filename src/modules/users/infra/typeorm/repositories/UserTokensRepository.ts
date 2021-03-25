@@ -15,7 +15,7 @@ export class UserTokensRepository extends Repository<UserTokens> {
     return userToken
   }
 
-  async generate(user_id: string): Promise<Response> {
+  async generate(user_id: string): Promise<UserTokens> {
     const userToken = this.create({
       user_id
     })
