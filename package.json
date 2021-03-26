@@ -4,6 +4,19 @@
   "main": "index.js",
   "author": "r3nanp <renanmol87@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/r3nanp/sellapi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r3nanp/sellapi.git"
+  },
+  "keywords": [
+    "sell",
+    "api",
+    "ecommerce"
+  ],
+  "bugs": {
+    "url": "https://github.com/r3nanp/sellapi/issues"
+  },
   "scripts": {
     "start:server": "node dist/shared/infra/http/server.js",
     "build": "tsc",
@@ -14,6 +27,8 @@
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
@@ -24,6 +39,8 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
@@ -32,6 +49,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-promise": "^4.3.1",
+    "husky": "^5.2.0",
+    "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "ts-node": "3.3.0",
     "ts-node-dev": "^1.1.6",
@@ -54,5 +73,22 @@
     "typeorm": "0.2.31",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix"
+    ]
   }
 }
