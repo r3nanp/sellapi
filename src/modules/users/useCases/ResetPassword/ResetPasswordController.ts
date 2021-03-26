@@ -7,9 +7,10 @@ export class ResetPasswordController {
     const schema = yup.object().shape({
       password: yup.string().min(7).required(),
       password_confirmation: yup
-        .string()
-        .oneOf([yup.ref('password'), null], 'Passwords does not match!')
-        .required(),
+        .mixed()
+        .test('match', 'Passwords do not match', function () {
+          return this.parent.password === this.parent.password_confirmation
+        }),
       token: yup.string().uuid().required()
     })
 
