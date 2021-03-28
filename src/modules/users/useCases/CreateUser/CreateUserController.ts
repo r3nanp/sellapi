@@ -1,6 +1,6 @@
-import { CreateUserService } from '@modules/users/services/CreateUserService'
 import { Request, Response } from 'express'
 import * as yup from 'yup'
+import { CreateUserService } from '@modules/users/services/CreateUserService'
 
 export class CreateUserController {
   async create(request: Request, response: Response): Promise<Response> {
