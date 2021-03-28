@@ -5,7 +5,7 @@ import { AppError } from '@shared/errors/AppError'
 import { Product } from '../infra/typeorm/entities/product.entity'
 import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
 
-type Request = {
+interface Request {
   id: string
   name: string
   price: number
