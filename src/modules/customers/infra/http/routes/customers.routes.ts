@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated'
 
 import { searchCustomerController } from '@modules/customers/useCases/SearchCustomer'
 import { showCustomerController } from '@modules/customers/useCases/ShowCustomer'
@@ -8,6 +9,7 @@ import { deleteCustomerController } from '@modules/customers/useCases/DeleteCust
 
 const customersRouter = Router()
 
+customersRouter.use(ensureAuthenticated)
 customersRouter.get('/', searchCustomerController.search)
 customersRouter.get('/:id', showCustomerController.show)
 
