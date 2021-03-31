@@ -6,12 +6,12 @@ import { CustomersRepository } from '../infra/typeorm/repositories/CustomersRepo
 
 type Response = Customer[]
 
-export class SearchCustomerService implements Service<Request, Response> {
+export class SearchCustomerService implements Service<void, Response> {
   async execute(): Promise<Response> {
     const customersRepository = getCustomRepository(CustomersRepository)
 
-    const customer = await customersRepository.find()
+    const customers = await customersRepository.find()
 
-    return customer
+    return customers
   }
 }
