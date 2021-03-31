@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import * as yup from 'yup'
 import { CreateSessionService } from '@modules/users/services/CreateSessionService'
+import { classToClass } from 'class-transformer'
 
 export class CreateSessionController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -26,6 +27,6 @@ export class CreateSessionController {
       password
     })
 
-    return response.json(sessionCreated)
+    return response.json(classToClass(sessionCreated))
   }
 }

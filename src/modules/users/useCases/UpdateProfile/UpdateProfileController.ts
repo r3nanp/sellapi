@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import * as yup from 'yup'
 import { UpdateProfileService } from '@modules/users/services/UpdateProfileService'
+import { classToClass } from 'class-transformer'
 
 export class UpdateProfileController {
   async update(request: Request, response: Response): Promise<Response> {
@@ -30,7 +31,7 @@ export class UpdateProfileController {
 
     const updateProfile = new UpdateProfileService()
 
-    const update = await updateProfile.execute({
+    const updatedUser = await updateProfile.execute({
       id,
       name,
       email,
@@ -38,6 +39,6 @@ export class UpdateProfileController {
       old_password
     })
 
-    return response.json(update)
+    return response.json(classToClass(updatedUser))
   }
 }

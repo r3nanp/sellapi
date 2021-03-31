@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { ShowProfileService } from '@modules/users/services/ShowProfileService'
+import { classToClass } from 'class-transformer'
 
 export class ShowProfileController {
   async show(request: Request, response: Response): Promise<Response> {
@@ -9,6 +10,6 @@ export class ShowProfileController {
 
     const profile = await showProfile.execute(id)
 
-    return response.json(profile)
+    return response.json(classToClass(profile))
   }
 }

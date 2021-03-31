@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import * as yup from 'yup'
 import { CreateUserService } from '@modules/users/services/CreateUserService'
+import { classToClass } from 'class-transformer'
 
 export class CreateUserController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -28,6 +29,6 @@ export class CreateUserController {
       password
     })
 
-    return response.status(201).json(user)
+    return response.status(201).json(classToClass(user))
   }
 }
