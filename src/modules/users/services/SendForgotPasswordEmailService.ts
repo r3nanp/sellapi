@@ -47,8 +47,8 @@ export class SendForgotPasswordEmailService implements Service<Request, void> {
           name: user.name,
           link:
             process.env.NODE_ENV === 'production'
-              ? ''
-              : `http://localhost:3000/reset_password?token=${token}`
+              ? `${process.env.PROD_URL}/reset_password?token=${token}`
+              : `${process.env.DEV_URL}/reset_password?token=${token}`
         }
       }
     })
