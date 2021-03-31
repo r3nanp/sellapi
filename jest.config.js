@@ -4,7 +4,7 @@ const { compilerOptions } = require('./tsconfig')
 module.exports = {
   bail: true,
   clearMocks: true,
-  collectCoverageFrom: ['src/services/**/*.ts'],
+  collectCoverageFrom: ['src/**/**/*.ts'],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   preset: 'ts-jest',
@@ -12,7 +12,6 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/src/'
   }),
-  setupFiles: ['<rootDir>/src/shared/tests/setupTests.ts'],
   testEnvironment: 'node',
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   transform: {
