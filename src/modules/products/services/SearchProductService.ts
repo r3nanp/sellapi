@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm'
 import { Service } from '@shared/core/Service'
 import { Product } from '../infra/typeorm/entities/product.entity'
 import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
+import { RedisCache } from '@shared/cache/RedisCache'
 
 type Response = Product[]
 
@@ -10,8 +11,18 @@ export class SearchProductService implements Service<void, Response> {
   async execute(): Promise<Response> {
     const productsRepository = getCustomRepository(ProductsRepository)
 
-    const products = await productsRepository.find()
+    const redisCache = new RedisCache()
 
-    return products
+    let cachedProducts = await redisCache.recover<Response>(
+      'sell_api@PRODUCTS_LIST'
+    )
+
+    if (!cachedProducts) {
+      cachedProducts = await productsRepository.find()
+
+      await redisCache.save('sell_api@PRODUCTS_LIST', cachedProducts)
+    }
+
+    return cachedProducts
   }
 }

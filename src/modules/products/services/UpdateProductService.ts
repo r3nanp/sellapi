@@ -4,6 +4,7 @@ import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
 import { Product } from '../infra/typeorm/entities/product.entity'
 import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
+import { RedisCache } from '@shared/cache/RedisCache'
 
 interface Request {
   id: string
@@ -31,7 +32,11 @@ export class UpdateProductService implements Service<Request, Response> {
       throw new AppError('A product with this name already exists.')
     }
 
+    const redisCache = new RedisCache()
+
     Object.assign(product, props)
+
+    await redisCache.invalidate('sell_api@PRODUCTS_LIST')
 
     await productsRepository.save(product)
 
