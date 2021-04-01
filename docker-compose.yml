@@ -24,8 +24,10 @@ services:
 
   redis:
     image: bitnami/redis:latest
+    # Add this user because this image has to be a root
+    user: root
     container_name: sell_api-redis
-    restart: always
+    restart: unless-stopped
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - REDIS_PASSWORD=${REDIS_PASS}
