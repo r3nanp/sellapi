@@ -8,12 +8,14 @@ import 'express-async-errors'
 import '@shared/infra/typeorm/createConnection'
 import { routes } from './routes/app.routes'
 import { AppError } from '@shared/errors/AppError'
+import { rateLimiter } from './middlewares/rateLimiter'
 import uploadConfig from '@config/upload'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(rateLimiter)
 
 app.use('/files', express.static(uploadConfig.directory))
 app.use(routes)
