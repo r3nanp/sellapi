@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated'
 
-import { searchCustomerController } from '@modules/customers/useCases/SearchCustomer'
-import { showCustomerController } from '@modules/customers/useCases/ShowCustomer'
-import { createCustomerController } from '@modules/customers/useCases/CreateCustomer'
-import { updateCustomerController } from '@modules/customers/useCases/UpdateCustomer'
-import { deleteCustomerController } from '@modules/customers/useCases/DeleteCustomer'
+import { searchCustomerController } from '@modules/customers/infra/useCases/SearchCustomer'
+import { showCustomerController } from '@modules/customers/infra/useCases/ShowCustomer'
+import { createCustomerController } from '@modules/customers/infra/useCases/CreateCustomer'
+import { updateCustomerController } from '@modules/customers/infra/useCases/UpdateCustomer'
+import { deleteCustomerController } from '@modules/customers/infra/useCases/DeleteCustomer'
 
 const customersRouter = Router()
 
