@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import 'dotenv/config'
 
 import express, { NextFunction, Request, Response } from 'express'
+import '@shared/container'
 import cors from 'cors'
 import 'express-async-errors'
 
