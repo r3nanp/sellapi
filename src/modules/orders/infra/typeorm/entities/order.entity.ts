@@ -8,11 +8,12 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
-import { Customer } from '@modules/customers/infra/typeorm/entities/customer.entity'
 import { OrdersProducts } from './orders_products.entity'
+import { Customer } from '@modules/customers/infra/typeorm/entities/customer.entity'
+import type { IOrder } from '@modules/orders/domain/models/Order'
 
 @Entity('orders')
-export class Order {
+export class Order implements IOrder {
   constructor() {
     if (!this.id) {
       this.id = uuidv4()

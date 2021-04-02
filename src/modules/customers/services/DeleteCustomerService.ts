@@ -1,20 +1,19 @@
-import { getCustomRepository } from 'typeorm'
-
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
-import { CustomersRepository } from '../infra/typeorm/repositories/CustomersRepository'
+import { ICustomerRepository } from '../domain/repositories/ICustomerRepository'
 
 type Request = string
 
 export class DeleteCustomerService implements Service<Request, void> {
+  constructor(private customersRepository: ICustomerRepository) {}
+
   async execute(id: Request): Promise<void> {
-    const customersRepository = getCustomRepository(CustomersRepository)
-    const customer = await customersRepository.findOne(id)
+    const customer = await this.customersRepository.findOne(id)
 
     if (!customer) {
       throw new AppError('Customer not found!')
     }
 
-    await customersRepository.remove(customer)
+    await this.customersRepository.remove(customer)
   }
 }

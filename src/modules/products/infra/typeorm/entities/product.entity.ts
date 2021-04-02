@@ -8,9 +8,10 @@ import {
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { OrdersProducts } from '@modules/orders/infra/typeorm/entities/orders_products.entity'
+import type { IProduct } from '@modules/products/domain/models/Product'
 
 @Entity('products')
-export class Product {
+export class Product implements IProduct {
   constructor() {
     if (!this.id) {
       this.id = uuidv4()

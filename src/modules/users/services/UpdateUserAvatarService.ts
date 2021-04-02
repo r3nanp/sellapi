@@ -5,8 +5,8 @@ import uploadConfig from '@config/upload'
 
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
-import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
 import { User } from '../infra/typeorm/entities/user.entity'
+import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
 
 interface Request {
   user_id: string

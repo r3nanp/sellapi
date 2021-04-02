@@ -45,10 +45,7 @@ export class SendForgotPasswordEmailService implements Service<Request, void> {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link:
-            process.env.NODE_ENV === 'production'
-              ? `${process.env.PROD_URL}/reset_password?token=${token}`
-              : `${process.env.DEV_URL}/reset_password?token=${token}`
+          link: `${process.env.APP_URL}/reset_password?token=${token}`
         }
       }
     })

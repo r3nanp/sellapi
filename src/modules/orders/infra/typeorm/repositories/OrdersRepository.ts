@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm'
-import { Order } from '../entities/order.entity'
+import { Order } from '@modules/orders/infra/typeorm/entities/order.entity'
 import { Customer } from '@modules/customers/infra/typeorm/entities/customer.entity'
 
 interface IProduct {

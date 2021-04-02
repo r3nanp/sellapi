@@ -1,9 +1,10 @@
+import { container } from 'tsyringe'
 import { Request, Response } from 'express'
 import { SearchCustomerService } from '@modules/customers/services/SearchCustomerService'
 
 export class SearchCustomerController {
   async search(request: Request, response: Response): Promise<Response> {
-    const searchCustomers = new SearchCustomerService()
+    const searchCustomers = container.resolve(SearchCustomerService)
 
     const customers = await searchCustomers.execute()
 

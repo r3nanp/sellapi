@@ -6,9 +6,10 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
+import type { ICustomer } from '@modules/customers/domain/models/Customer'
 
 @Entity('customers')
-export class Customer {
+export class Customer implements ICustomer {
   constructor() {
     if (!this.id) {
       this.id = uuidv4()

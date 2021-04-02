@@ -1,9 +1,9 @@
 import { getCustomRepository } from 'typeorm'
 
 import { Service } from '@shared/core/Service'
+import { RedisCache } from '@shared/cache/RedisCache'
 import { Product } from '../infra/typeorm/entities/product.entity'
 import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
-import { RedisCache } from '@shared/cache/RedisCache'
 
 type Response = Product[]
 

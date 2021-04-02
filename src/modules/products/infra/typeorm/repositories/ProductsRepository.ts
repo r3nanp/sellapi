@@ -1,5 +1,5 @@
 import { EntityRepository, In, Repository } from 'typeorm'
-import { Product } from '../entities/product.entity'
+import { Product } from '@modules/products/infra/typeorm/entities/product.entity'
 
 type Response = Product | undefined
 interface Products {

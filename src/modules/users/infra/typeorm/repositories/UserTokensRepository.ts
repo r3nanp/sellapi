@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm'
-import { UserTokens } from '../entities/UserTokens.entity'
+import { UserTokens } from '@modules/users/infra/typeorm/entities/UserTokens.entity'
 
 type Response = UserTokens | undefined
 

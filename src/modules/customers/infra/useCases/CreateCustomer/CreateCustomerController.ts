@@ -1,3 +1,4 @@
+import { container } from 'tsyringe'
 import { Request, Response } from 'express'
 import * as yup from 'yup'
 import { CreateCustomerService } from '@modules/customers/services/CreateCustomerService'
@@ -19,7 +20,7 @@ export class CreateCustomerController {
 
     const { name, email } = request.body
 
-    const createCustomer = new CreateCustomerService()
+    const createCustomer = container.resolve(CreateCustomerService)
 
     const customer = await createCustomer.execute({
       name,

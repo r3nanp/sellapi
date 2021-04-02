@@ -7,9 +7,10 @@ import {
 } from 'typeorm'
 import { Exclude, Expose } from 'class-transformer'
 import { v4 as uuidv4 } from 'uuid'
+import type { IUser } from '@modules/users/domain/models/User'
 
 @Entity('users')
-export class User {
+export class User implements IUser {
   constructor() {
     if (!this.id) {
       this.id = uuidv4()
@@ -44,8 +45,6 @@ export class User {
       return null
     }
 
-    return process.env.NODE_ENV === 'production'
-      ? `${process.env.PROD_URL}/files/${this.avatar}`
-      : `${process.env.DEV_URL}/files/${this.avatar}`
+    return `${process.env.APP_URL}/files/${this.avatar}`
   }
 }

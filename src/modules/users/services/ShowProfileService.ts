@@ -1,9 +1,9 @@
 import { getCustomRepository } from 'typeorm'
 
 import { Service } from '@shared/core/Service'
+import { AppError } from '@shared/errors/AppError'
 import { User } from '../infra/typeorm/entities/user.entity'
 import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
-import { AppError } from '@shared/errors/AppError'
 
 type Request = string
 

@@ -6,9 +6,10 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
+import { IUserTokens } from '@modules/users/domain/models/UserTokens'
 
 @Entity('user_tokens')
-export class UserTokens {
+export class UserTokens implements IUserTokens {
   constructor() {
     if (!this.id && !this.token) {
       this.id = uuidv4()

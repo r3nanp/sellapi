@@ -1,6 +1,7 @@
-import { UpdateCustomerService } from '@modules/customers/services/UpdateCustomerService'
 import { Request, Response } from 'express'
+import { container } from 'tsyringe'
 import * as yup from 'yup'
+import { UpdateCustomerService } from '@modules/customers/services/UpdateCustomerService'
 
 export class UpdateCustomerController {
   async update(request: Request, response: Response): Promise<Response> {
@@ -21,7 +22,7 @@ export class UpdateCustomerController {
 
     const { name, email } = request.body
 
-    const updateCustomer = new UpdateCustomerService()
+    const updateCustomer = container.resolve(UpdateCustomerService)
 
     const customer = await updateCustomer.execute({
       id,

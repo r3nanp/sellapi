@@ -2,8 +2,8 @@ import { getCustomRepository } from 'typeorm'
 
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
-import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
 import { RedisCache } from '@shared/cache/RedisCache'
+import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository'
 
 type Request = string
 

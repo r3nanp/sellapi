@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
+import { User } from '../infra/typeorm/entities/user.entity'
 import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
 
 interface Request {
@@ -11,8 +12,10 @@ interface Request {
   password: string
 }
 
-export class CreateUserService implements Service<Request, void> {
-  async execute({ name, email, password }: Request): Promise<Request> {
+type Response = User
+
+export class CreateUserService implements Service<Request, Response> {
+  async execute({ name, email, password }: Request): Promise<Response> {
     const usersRepository = getCustomRepository(UserRepository)
 
     const emailExists = await usersRepository.findByEmail(email)
