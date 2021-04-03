@@ -1,32 +1,34 @@
-import { getCustomRepository } from 'typeorm'
-import bcrypt from 'bcryptjs'
+import { inject, injectable } from 'tsyringe'
 import jwt from 'jsonwebtoken'
+import auth from '@config/auth'
 
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
-import { User } from '../infra/typeorm/entities/user.entity'
-import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
-import auth from '@config/auth'
+import { BcryptAdapter } from '@shared/infra/cryptography/BcryptAdapter'
+import { IUser } from '../domain/models/User'
+import { IUserRepository } from '../domain/repositories/IUserRepository'
 
-interface Request {
-  email: string
-  password: string
-}
-
+type Request = Pick<IUser, 'email' | 'password'>
 interface Response {
-  user: User
+  user: IUser
   token: string
 }
 
+@injectable()
 export class CreateSessionService implements Service<Request, Response> {
-  async execute({ email, password }: Request): Promise<Response> {
-    const usersRepository = getCustomRepository(UserRepository)
+  constructor(
+    @inject('UserRepository')
+    private usersRepository: IUserRepository
+  ) {}
 
-    const user = await usersRepository.findByEmail(email)
+  async execute({ email, password }: Request): Promise<Response> {
+    const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
       throw new AppError('Incorrect email/password combination.', 401)
     }
+
+    const bcrypt = new BcryptAdapter(8)
 
     const passwordConfirmed = await bcrypt.compare(password, user.password)
 

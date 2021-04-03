@@ -1,22 +1,24 @@
-import { getCustomRepository } from 'typeorm'
-import bcrypt from 'bcryptjs'
-
+import { inject, injectable } from 'tsyringe'
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
-import { User } from '../infra/typeorm/entities/user.entity'
-import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
+import { BcryptAdapter } from '@shared/infra/cryptography/BcryptAdapter'
+import { IUser } from '../domain/models/User'
+import { IUserRepository } from '../domain/repositories/IUserRepository'
 
-interface Request {
-  id: string
-  name: string
-  email: string
-  password?: string
-  old_password?: string
-}
+type Request = Pick<
+  IUser,
+  'id' | 'name' | 'email' | 'password' | 'old_password'
+>
 
-type Response = User
+type Response = IUser
 
+@injectable()
 export class UpdateProfileService implements Service<Request, Response> {
+  constructor(
+    @inject('UserRepository')
+    private usersRepository: IUserRepository
+  ) {}
+
   async execute({
     id,
     name,
@@ -25,15 +27,15 @@ export class UpdateProfileService implements Service<Request, Response> {
     old_password
   }: Request): Promise<Response> {
     const props = { name, email }
+    const user = await this.usersRepository.findById(id)
 
-    const userRepository = getCustomRepository(UserRepository)
-    const user = await userRepository.findById(id)
+    const bcrypt = new BcryptAdapter(8)
 
     if (!user) {
       throw new AppError('User not found.')
     }
 
-    const userEmail = await userRepository.findByEmail(email)
+    const userEmail = await this.usersRepository.findByEmail(email)
 
     if (userEmail && userEmail.id !== id) {
       throw new AppError('A user with this email already exists.')
@@ -50,12 +52,12 @@ export class UpdateProfileService implements Service<Request, Response> {
         throw new AppError('Old password does not match.')
       }
 
-      user.password = await bcrypt.hash(password, 8)
+      user.password = await bcrypt.hash(password)
     }
 
     Object.assign(user, props)
 
-    await userRepository.save(user)
+    await this.usersRepository.save(user)
 
     return user
   }

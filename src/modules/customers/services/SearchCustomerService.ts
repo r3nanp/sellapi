@@ -13,7 +13,7 @@ export class SearchCustomerService implements Service<void, Response> {
   ) {}
 
   async execute(): Promise<Response> {
-    const customers = await this.customersRepository.find()
+    const customers = await this.customersRepository.findAll()
 
     return customers
   }

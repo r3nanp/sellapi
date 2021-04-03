@@ -3,16 +3,16 @@ import { Customer } from '@modules/customers/infra/typeorm/entities/customer.ent
 import { ICustomerRepository } from '@modules/customers/domain/repositories/ICustomerRepository'
 import { ICustomer } from '@modules/customers/domain/models/Customer'
 
-type Response = Customer | undefined
+type Response = ICustomer | undefined
 
 export class CustomersRepository implements ICustomerRepository {
-  private ormRepository: Repository<Customer>
+  private ormRepository: Repository<ICustomer>
 
   constructor() {
     this.ormRepository = getRepository(Customer)
   }
 
-  async create({ name, email }: ICustomer): Promise<Customer> {
+  async create({ name, email }: ICustomer): Promise<ICustomer> {
     const customer = this.ormRepository.create({ name, email })
 
     await this.ormRepository.save(customer)
@@ -20,13 +20,13 @@ export class CustomersRepository implements ICustomerRepository {
     return customer
   }
 
-  async save(customer: Customer): Promise<Customer> {
+  async save(customer: Customer): Promise<ICustomer> {
     await this.ormRepository.save(customer)
 
     return customer
   }
 
-  async find(): Promise<Customer[]> {
+  async findAll(): Promise<ICustomer[]> {
     const customer = await this.ormRepository.find()
 
     return customer

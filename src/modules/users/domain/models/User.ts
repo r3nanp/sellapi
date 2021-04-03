@@ -7,4 +7,5 @@ export interface IUser {
   created_at: Date
   updated_at: Date
   getAvatarUrl(): string | null
+  old_password?: string
 }

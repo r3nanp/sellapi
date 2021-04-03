@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import * as yup from 'yup'
 import { CreateSessionService } from '@modules/users/services/CreateSessionService'
 import { classToClass } from 'class-transformer'
+import { container } from 'tsyringe'
 
 export class CreateSessionController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -20,7 +21,7 @@ export class CreateSessionController {
 
     const { email, password } = request.body
 
-    const session = new CreateSessionService()
+    const session = container.resolve(CreateSessionService)
 
     const sessionCreated = await session.execute({
       email,

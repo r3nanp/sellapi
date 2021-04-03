@@ -1,29 +1,33 @@
-import { getCustomRepository } from 'typeorm'
+import { injectable, inject } from 'tsyringe'
 import { isAfter, addHours } from 'date-fns'
-import bcrypt from 'bcryptjs'
 
 import { Service } from '@shared/core/Service'
 import { AppError } from '@shared/errors/AppError'
-import { UserTokensRepository } from '../infra/typeorm/repositories/UserTokensRepository'
-import { UserRepository } from '../infra/typeorm/repositories/UserRepository'
+import { BcryptAdapter } from '@shared/infra/cryptography/BcryptAdapter'
+import { IUser } from '../domain/models/User'
+import { IUserTokens } from '../domain/models/UserTokens'
+import { IUserRepository } from '../domain/repositories/IUserRepository'
+import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository'
 
-interface Request {
-  token: string
-  password: string
-}
+type Request = Pick<IUser, 'password'> & Pick<IUserTokens, 'token'>
 
+@injectable()
 export class ResetPasswordService implements Service<Request, void> {
-  async execute({ token, password }: Request): Promise<void> {
-    const usersRepository = getCustomRepository(UserRepository)
-    const userTokenRepository = getCustomRepository(UserTokensRepository)
+  constructor(
+    @inject('UserRepository')
+    private usersRepository: IUserRepository,
+    @inject('UserTokens')
+    private userTokenRepository: IUserTokensRepository
+  ) {}
 
-    const userToken = await userTokenRepository.findByToken(token)
+  async execute({ token, password }: Request): Promise<void> {
+    const userToken = await this.userTokenRepository.findByToken(token)
 
     if (!userToken) {
       throw new AppError('User token does not exists.')
     }
 
-    const user = await usersRepository.findById(userToken.user_id)
+    const user = await this.usersRepository.findById(userToken.user_id)
 
     if (!user) {
       throw new AppError('User does not exists.')
@@ -36,10 +40,11 @@ export class ResetPasswordService implements Service<Request, void> {
       throw new AppError('Token expired.')
     }
 
-    const hashedPassword = await bcrypt.hash(password, 8)
+    const bcrypt = new BcryptAdapter(8)
+    const hashedPassword = await bcrypt.hash(password)
 
     user.password = hashedPassword
 
-    await usersRepository.save(user)
+    await this.usersRepository.save(user)
   }
 }

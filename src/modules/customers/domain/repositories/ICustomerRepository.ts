@@ -10,5 +10,5 @@ export interface ICustomerRepository {
   findById(id: string): Promise<Response>
   create(data: ICreateCustomer): Promise<ICustomer>
   save(customer: ICustomer): Promise<ICustomer>
-  find(): Promise<ICustomer[]>
+  findAll(): Promise<ICustomer[]>
 }

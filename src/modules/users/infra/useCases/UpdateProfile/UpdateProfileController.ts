@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import * as yup from 'yup'
 import { UpdateProfileService } from '@modules/users/services/UpdateProfileService'
 import { classToClass } from 'class-transformer'
+import { container } from 'tsyringe'
 
 export class UpdateProfileController {
   async update(request: Request, response: Response): Promise<Response> {
@@ -29,7 +30,7 @@ export class UpdateProfileController {
 
     const { name, email, password, old_password } = request.body
 
-    const updateProfile = new UpdateProfileService()
+    const updateProfile = container.resolve(UpdateProfileService)
 
     const updatedUser = await updateProfile.execute({
       id,
