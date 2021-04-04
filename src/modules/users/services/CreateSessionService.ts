@@ -1,5 +1,4 @@
 import { inject, injectable } from 'tsyringe'
-import jwt from 'jsonwebtoken'
 import auth from '@config/auth'
 
 import { Service } from '@shared/core/Service'
@@ -7,6 +6,7 @@ import { AppError } from '@shared/errors/AppError'
 import { BcryptAdapter } from '@shared/infra/cryptography/BcryptAdapter'
 import { IUser } from '../domain/models/User'
 import { IUserRepository } from '../domain/repositories/IUserRepository'
+import { JwtAdapter } from '@shared/infra/cryptography/JwtAdapter'
 
 type Request = Pick<IUser, 'email' | 'password'>
 interface Response {
@@ -36,10 +36,8 @@ export class CreateSessionService implements Service<Request, Response> {
       throw new AppError('Incorrect email/password combination.', 401)
     }
 
-    const token = jwt.sign({}, auth.secret, {
-      subject: user.id,
-      expiresIn: auth.expiresIn
-    })
+    const jwt = new JwtAdapter(auth.secret)
+    const token = await jwt.encrypt(auth.expiresIn, user.id)
 
     return {
       user,

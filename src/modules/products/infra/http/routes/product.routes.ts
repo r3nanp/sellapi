@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
-import { createProductController } from '@modules/products/infra/useCases/CreateProduct'
-import { searchProductController } from '@modules/products/infra/useCases/SearchProduct'
-import { showProductController } from '@modules/products/infra/useCases/ShowProduct'
-import { updateProductController } from '@modules/products/infra/useCases/UpdateProduct'
-import { deleteProductController } from '@modules/products/infra/useCases/DeleteProduct'
+import { createProductController } from '@modules/products/infra/http/useCases/CreateProduct'
+import { searchProductController } from '@modules/products/infra/http/useCases/SearchProduct'
+import { showProductController } from '@modules/products/infra/http/useCases/ShowProduct'
+import { updateProductController } from '@modules/products/infra/http/useCases/UpdateProduct'
+import { deleteProductController } from '@modules/products/infra/http/useCases/DeleteProduct'
 
 const productsRouter = Router()
 
