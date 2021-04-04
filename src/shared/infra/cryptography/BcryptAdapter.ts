@@ -1,5 +1,5 @@
-import { Hasher } from '@shared/core/Hasher'
-import { HashComparer } from '@shared/core/HasherComparer'
+import { Hasher } from '@shared/core/cryptography/Hasher'
+import { HashComparer } from '@shared/core/cryptography/HasherComparer'
 import bcrypt from 'bcryptjs'
 
 export class BcryptAdapter implements Hasher, HashComparer {
