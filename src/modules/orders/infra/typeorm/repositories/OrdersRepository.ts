@@ -4,14 +4,13 @@ import { IOrder } from '@modules/orders/domain/models/Order'
 import { IProduct } from '@modules/products/domain/models/Product'
 import { ICustomer } from '@modules/customers/domain/models/Customer'
 import { IOrdersRepository } from '@modules/orders/domain/repositories/OrdersRepository'
-
-type Product = Pick<IProduct, 'id' | 'quantity' | 'price'>
+import { ICreateProducts } from '@modules/orders/domain/models/ICreateProducts'
 
 type IUpdateStock = Pick<IProduct, 'id' | 'quantity'>
 
 interface Request {
   customer: ICustomer
-  products: Product[]
+  products: ICreateProducts[]
 }
 
 type Response = IOrder | undefined
@@ -23,7 +22,9 @@ export class OrdersRepository implements IOrdersRepository {
     this.ormRepository = getRepository(Order)
   }
 
-  async createOrder({ customer, products }: Request): Promise<IOrder> {
+  async createOrder(data: Request): Promise<IOrder> {
+    const { customer, products } = data
+
     const order = this.ormRepository.create({
       customer,
       orders_products: products
