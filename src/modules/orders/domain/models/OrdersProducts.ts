@@ -1,12 +1,12 @@
-import { Order } from '@modules/orders/infra/typeorm/entities/order.entity'
-import { Product } from '@modules/products/infra/typeorm/entities/product.entity'
+import { IOrder } from './Order'
+import { IProduct } from '@modules/products/domain/models/Product'
 
 export interface IOrdersProducts {
   readonly id: string
   readonly order_id: string
   readonly product_id: string
-  order: Order
-  product: Product
+  order: IOrder
+  product: IProduct
   price: number
   quantity: number
   created_at: Date

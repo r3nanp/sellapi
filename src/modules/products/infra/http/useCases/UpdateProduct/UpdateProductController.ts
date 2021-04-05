@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { UpdateProductService } from '@modules/products/services/UpdateProductService'
 import * as yup from 'yup'
+import { container } from 'tsyringe'
 
 export class UpdateProductController {
   async update(request: Request, response: Response): Promise<Response> {
@@ -22,7 +23,7 @@ export class UpdateProductController {
 
     const { name, price, quantity } = request.body
 
-    const updateProduct = new UpdateProductService()
+    const updateProduct = container.resolve(UpdateProductService)
 
     const product = await updateProduct.execute({ id, name, price, quantity })
 

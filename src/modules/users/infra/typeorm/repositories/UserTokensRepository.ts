@@ -3,7 +3,7 @@ import { UserTokens } from '@modules/users/infra/typeorm/entities/UserTokens.ent
 import { IUserTokens } from '@modules/users/domain/models/UserTokens'
 import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository'
 
-type Response = UserTokens | undefined
+type Response = IUserTokens | undefined
 
 export class UserTokensRepository implements IUserTokensRepository {
   private ormRepository: Repository<IUserTokens>

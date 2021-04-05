@@ -1,8 +1,7 @@
-import { OrdersProducts } from '@modules/orders/infra/typeorm/entities/orders_products.entity'
-
+import { IOrdersProducts } from '@modules/orders/domain/models/OrdersProducts'
 export interface IProduct {
   readonly id: string
-  orders_products: Array<OrdersProducts>
+  orders_products: IOrdersProducts[]
   name: string
   price: number
   quantity: number

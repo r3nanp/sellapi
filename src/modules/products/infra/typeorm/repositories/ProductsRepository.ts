@@ -1,15 +1,59 @@
-import { EntityRepository, In, Repository } from 'typeorm'
-import { Product } from '@modules/products/infra/typeorm/entities/product.entity'
+import { getRepository, In, Repository } from 'typeorm'
+import { IProductRepository } from '@modules/products/domain/repositories/ProductsRepository'
+import { IProduct } from '@modules/products/domain/models/Product'
+import { Product } from '../entities/product.entity'
 
-type Response = Product | undefined
-interface Products {
-  id: string
-}
+type IUpdateStock = Pick<IProduct, 'id' | 'quantity'>
 
-@EntityRepository(Product)
-export class ProductsRepository extends Repository<Product> {
+type Response = IProduct | undefined
+
+export class ProductsRepository implements IProductRepository {
+  private ormRepository: Repository<IProduct>
+
+  constructor() {
+    this.ormRepository = getRepository(Product)
+  }
+
+  async create({ name, price, quantity }: IProduct): Promise<IProduct> {
+    const product = this.ormRepository.create({ name, price, quantity })
+
+    await this.ormRepository.save(product)
+
+    return product
+  }
+
+  async save(product: IProduct): Promise<IProduct> {
+    await this.ormRepository.save(product)
+
+    return product
+  }
+
+  async remove(product: IProduct): Promise<void> {
+    await this.ormRepository.remove(product)
+  }
+
+  async findAll(): Promise<IProduct[]> {
+    const products = await this.ormRepository.find()
+
+    return products
+  }
+
+  async findById(id: string): Promise<Response> {
+    const product = await this.ormRepository.findOne({
+      where: {
+        id
+      }
+    })
+
+    return product
+  }
+
+  async updatedStock(products: IUpdateStock[]): Promise<void> {
+    await this.ormRepository.save(products)
+  }
+
   async findByName(name: string): Promise<Response> {
-    const product = await this.findOne({
+    const product = await this.ormRepository.findOne({
       where: {
         name
       }
@@ -18,10 +62,10 @@ export class ProductsRepository extends Repository<Product> {
     return product
   }
 
-  async findAllById(products: Products[]): Promise<Product[]> {
+  async findAllById(products: IProduct[]): Promise<IProduct[]> {
     const productsIds = products.map(product => product.id)
 
-    const existsProducts = await this.find({
+    const existsProducts = await this.ormRepository.find({
       where: {
         id: In(productsIds)
       }

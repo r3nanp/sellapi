@@ -1,5 +1,6 @@
 import { CreateProductService } from '@modules/products/services/CreateProductService'
 import { Request, Response } from 'express'
+import { container } from 'tsyringe'
 import * as yup from 'yup'
 
 export class CreateProductController {
@@ -20,7 +21,7 @@ export class CreateProductController {
 
     const { name, price, quantity } = request.body
 
-    const createProduct = new CreateProductService()
+    const createProduct = container.resolve(CreateProductService)
 
     const product = await createProduct.execute({
       name,

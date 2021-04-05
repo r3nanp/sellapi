@@ -1,10 +1,12 @@
-import { Customer } from '@modules/customers/infra/typeorm/entities/customer.entity'
-import { OrdersProducts } from '@modules/orders/infra/typeorm/entities/orders_products.entity'
+import { ICustomer } from '@modules/customers/domain/models/Customer'
+import { IOrdersProducts } from './OrdersProducts'
+
+type IOrdersProduct = Pick<IOrdersProducts, 'product_id' | 'price' | 'quantity'>
 
 export interface IOrder {
   readonly id: string
-  customer: Customer
-  orders_products: Array<OrdersProducts>
+  customer: ICustomer
+  orders_products: IOrdersProduct[]
   created_at: Date
   updated_at: Date
 }
