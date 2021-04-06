@@ -4,7 +4,7 @@
 
 <div align="left">
 
-![r3nanp](https://img.shields.io/badge/r3nanp-sellapi?style=for-the-badge&logo=node.js&color=24B36B)
+![r3nanp](https://img.shields.io/badge/r3nanp-sellapi-color?style=for-the-badge&logo=node.js)
 ![license mit](https://img.shields.io/github/license/r3nanp/screen-recorder?color=blue&label=LICENSE&logo=github&style=for-the-badge)
 ![prs](https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000)
 
@@ -62,7 +62,7 @@ After copying the examples, make sure to fill the variables with new values.
 
 Install [Postgres](https://www.postgresql.org/) to create a database or if you have [Docker](https://www.docker.com/) in your machine, fill the environment values related to database configurations and then run the following commands in order to create a Postgres container.
 
-```docker-compose up```
+```docker-compose up -d```
 
 # 🏃 Getting Started
 
