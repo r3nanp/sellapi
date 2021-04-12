@@ -22,6 +22,6 @@ describe('Search Customer', () => {
 
     const customers = await listCustomers.execute()
 
-    expect(customers).toHaveLength(1)
+    expect(customers).toHaveLength(2)
   })
 })
