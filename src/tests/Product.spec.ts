@@ -2,7 +2,7 @@ import request from 'supertest'
 import { app } from '@shared/infra/http/app'
 import PostgresMock from '@shared/tests/PostgresMock'
 
-describe('POST /products', () => {
+describe('Products', () => {
   beforeAll(async () => {
     await PostgresMock.connect()
     await PostgresMock.runMigrations()
@@ -10,7 +10,7 @@ describe('POST /products', () => {
 
   afterEach(async () => {
     PostgresMock.getConnection()
-    await PostgresMock.query('DELETE FROM USERS')
+    await PostgresMock.query('DELETE FROM PRODUCTS')
   })
 
   afterAll(async () => {

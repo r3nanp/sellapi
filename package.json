@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/r3nanp/sellapi/issues"
   },
+  "engines": {
+    "node": ">=14.16.1"
+  },
   "scripts": {
     "start:server": "node dist/shared/infra/http/server.js",
     "build": "tsc",
