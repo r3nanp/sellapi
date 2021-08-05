@@ -21,11 +21,14 @@
     "start:server": "node dist/shared/infra/http/server.js",
     "build": "tsc",
     "dev": "tsnd --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/shared/infra/http/server.ts",
-    "lint": "eslint . --ext ts",
-    "lint:fix": "eslint . --ext ts --fix",
+    "lint": "eslint src --max-warnings=0",
+    "lint:fix": "eslint src --fix",
+    "postinstall": "husky install",
     "tsc": "tsc --noEmit",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest"
+    "test": "jest --maxWorkers=25%",
+    "test:ci": "jest --runInBand",
+    "test:watch": "jest --watch --maxWorkers=15%"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
