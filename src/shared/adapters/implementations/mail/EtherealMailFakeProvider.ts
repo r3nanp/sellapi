@@ -16,6 +16,8 @@ export class EtherealMailFakeProvider implements MailProvider {
   private transporter: Transporter
   private mailTemplate: MailTemplate
 
+  /* The mailconfig type is object to make the configuration agnostic */
+  // eslint-disable-next-line @typescript-eslint/ban-types
   constructor(mailConfig: object) {
     this.transporter = nodemailer.createTransport(mailConfig)
     this.mailTemplate = new MailTemplate()

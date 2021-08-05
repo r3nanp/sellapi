@@ -13,7 +13,9 @@ export class JwtAdapter implements Encrypter, Decrypter {
     })
   }
 
-  async decrypt(ciphertext: string): Promise<string> {
-    return jwt.verify(ciphertext, this.secret) as any
+  // Make agnostic
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  async decrypt(ciphertext: string): Promise<string | object> {
+    return jwt.verify(ciphertext, this.secret)
   }
 }
